@@ -6,35 +6,19 @@ let
 	tabContent 	= document.querySelectorAll('.tab-content');
 
 tabList.addEventListener('click', function(e) {
-	e.preventDefault(); // отключаем не нужные действия браузера
-});
+	if (e.target && e.target.classList.contains('tab')) {
+		let target = e.target;
 
-tab[0].addEventListener('click', function() {
-	setTimeout(function() {
-		tabContent[0].classList.add('active'); // добавляем класс active 
-	}, 300);   // добавляем задежку
+		e.preventDefault(); // отключаем не нужные действия браузера
+	
+		for (let i = 0; i < tab.length; i++) { // создаем цикл переберающий все табы  через i
+			if (target == tab[i]) {
+				tabContent.forEach(function(i) { // перебераем все tab-content и удаляем класс active
+					i.classList.remove('active');
+				});
 
-	// удаляем класс active
-	tabContent[1].classList.remove('active');
-	tabContent[2].classList.remove('active');
-});
-
-tab[1].addEventListener('click', function() {
-	setTimeout(function() {
-		tabContent[1].classList.add('active'); // добавляем класс active 
-	}, 300);	// добавляем задежку
-
-	// удаляем класс active
-	tabContent[0].classList.remove('active');
-	tabContent[2].classList.remove('active');
-});
-
-tab[2].addEventListener('click', function() {
-	setTimeout(function() {
-		tabContent[2].classList.add('active'); // добавляем класс active 
-	}, 300);	// добавляем задежку
-
-	// удаляем класс active
-	tabContent[1].classList.remove('active');
-	tabContent[0].classList.remove('active');
+				tabContent[i].classList.add('active'); // добавляем нажатому tab-content  класс active
+			}
+		}
+	}
 });
